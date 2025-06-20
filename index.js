@@ -79,6 +79,10 @@ app.delete("/products/:id", (req,res)=>{
 
 });
 
+app.use((req,res, next)=> {
+    res.status(404).json({error:"Not found"})
+});
+
 const PORT= 3000;
 app.listen(PORT, ()=> console.log ( `http://localhost:${PORT}`));
  
