@@ -7,7 +7,6 @@ const products= [
 ];
 
 
-
 export const getAllProducts = (req, res)=> {
     res.json(products);
 };
@@ -51,4 +50,15 @@ export const updateProduct =(req,res)=>{
     products[productIndex]= { id:productId,name,price};
     res.json(products[productIndex]);
     
+};
+
+export const deleteProduct= (req,res)=>{
+    const productId =parseInt(req.params.id, 10);  // base 10
+    const productIndex= products.findIndex((item)=>item.id === productId);
+    if(productIndex=== -1){
+        return res.status(404).json({error: "Producto no encontrado, el producto fue borrado"});
+    }
+    products.splice(productIndex,1);  //elimina un elemento
+    res.status(204).send(productIndex);
+
 };
