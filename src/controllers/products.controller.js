@@ -9,8 +9,8 @@ export const getAllProducts = (req, res)=> {
 export const searchProduct = (req,res)=> {
     console.log(req.query);
     const {name}= req.query;
-    const products =model.getAllProducts(); //agregue para que me traiga el array del servicio
-    const filteredProducts =products.filter ((p)=> p.name.toLowerCase().includes(name.toLowerCase()) 
+    const products =model.getAllProducts(); //agregue para que me traiga el array del model
+    const filteredProducts =products.filter ((p)=> p.name.toLowerCase().includes(name.toLowerCase())
     );
     res.json(filteredProducts); 
 };
@@ -18,7 +18,7 @@ export const searchProduct = (req,res)=> {
 export const getProductById= (req, res)=> {
     const {id}=req.params;
     console.log(id);
-    const products =model.getAllProducts();  //agregue para que me traiga el array del servicio
+    const products =model.getAllProducts();  //agregue para que me traiga el array del model
     const product=products.find((item)=> item.id == id);
     if(!product){
     res.status(404).json({Error: "No existe el producto"});
@@ -28,7 +28,7 @@ export const getProductById= (req, res)=> {
 
 export const createProduct  = (req, res)=> {    
     const {name, price, categories}= req.body;
-    //const products =model.getAllProducts();  //agregue para que me traiga el array del servicio
+    const products =model.getAllProducts();  //agregue para que me traiga el array del model
     const newProduct= model.createProduct({name,price,categories});
     res.status(201).json(newProduct);
 };
@@ -50,9 +50,8 @@ export const updateProduct =(req,res)=>{
 
 export const deleteProduct= (req,res)=>{
     const productId =parseInt(req.params.id, 10);  // base 10
-
     const product= model.deleteProduct(productId);
-        
+   
     if(!product){
         return res.status(404).json({error: "Producto no encontrado, el producto fue borrado"});
     };

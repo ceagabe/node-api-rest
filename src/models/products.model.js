@@ -18,6 +18,7 @@ export const getAllProductsbyId= (id) =>{
     return products.find((item)=>item.id == id);
 };
 
+
 export const createProduct  = (data)=> {       
     const newProduct={
         id:products.length + 1, 
