@@ -4,22 +4,19 @@ import path from 'path';
 
 const __dirname =import.meta.dirname;
 const dataPath = path.join(__dirname, './products.json');
-
 const json= fs.readFileSync(dataPath,'utf-8');
-
-
 const products= JSON.parse(json);   //esto es un objeto en js
+
 console.log(products);
+
 
 export const getAllProducts = ()=> {
     return products;
-
 };
 
 export const getAllProductsbyId= (id) =>{
     return products.find((item)=>item.id == id);
 };
-
 
 export const createProduct  = (data)=> {       
     const newProduct={
@@ -35,7 +32,6 @@ export const createProduct  = (data)=> {
 };
 
 export const deleteProduct=(id)=>{
-
     const productIndex= products.findIndex((item)=>item.id === id);
     if (productIndex == -1 ){
         return null;
@@ -46,6 +42,4 @@ export const deleteProduct=(id)=>{
     };
    
     //console.log(products);
-   
-
 };
