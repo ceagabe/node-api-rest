@@ -49,14 +49,12 @@ export const updateProduct =(req,res)=>{
 };
 
 export const deleteProduct= (req,res)=>{
-    const products =model.getAllProducts();  //agregue para que me traiga el array del modelo
     const productId =parseInt(req.params.id, 10);  // base 10
-    const productIndex= products.findIndex((item)=>item.id === productId);
-    
-    if(productIndex=== -1){
+
+    const product= model.deleteProduct(productId);
+        
+    if(!product){
         return res.status(404).json({error: "Producto no encontrado, el producto fue borrado"});
     };
-    products.splice(productIndex,1);  //elimina un elemento
-    res.status(204).send(productIndex);
-
+    res.status(204).send(productId);
 };

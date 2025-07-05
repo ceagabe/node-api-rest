@@ -33,3 +33,19 @@ export const createProduct  = (data)=> {
     return newProduct
 
 };
+
+export const deleteProduct=(id)=>{
+
+    const productIndex= products.findIndex((item)=>item.id === id);
+    if (productIndex == -1 ){
+        return null;
+    }else{
+    const  product = products.splice(productIndex,1);  //elimina un elemento
+    fs.writeFileSync(dataPath, JSON.stringify(products));
+     return products
+    };
+   
+    //console.log(products);
+   
+
+};
