@@ -27,9 +27,9 @@ export const getProductById= (req, res)=> {
 };
 
 export const createProduct  = (req, res)=> {    
-    const {name, price}= req.body;
+    const {name, price, categories}= req.body;
     //const products =model.getAllProducts();  //agregue para que me traiga el array del servicio
-    const newProduct= model.createProduct({name,price});
+    const newProduct= model.createProduct({name,price,categories});
     res.status(201).json(newProduct);
 };
 
