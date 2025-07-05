@@ -1,14 +1,15 @@
 
-import * as service from "../services/products.service.js"
+//import * as service from '../services/products.service.js'
+import * as model from '../models/products.model.js'
 
 export const getAllProducts = (req, res)=> {
-    res.json(service.getAllProducts());
+    res.json(model.getAllProducts());
 };
 
 export const searchProduct = (req,res)=> {
     console.log(req.query);
     const {name}= req.query;
-    const products =service.getAllProducts(); //agregue para que me traiga el array del servicio
+    const products =model.getAllProducts(); //agregue para que me traiga el array del servicio
     const filteredProducts =products.filter ((p)=> p.name.toLowerCase().includes(name.toLowerCase()) 
     );
     res.json(filteredProducts); 
@@ -17,7 +18,7 @@ export const searchProduct = (req,res)=> {
 export const getProductById= (req, res)=> {
     const {id}=req.params;
     console.log(id);
-    const products =service.getAllProducts();  //agregue para que me traiga el array del servicio
+    const products =model.getAllProducts();  //agregue para que me traiga el array del servicio
     const product=products.find((item)=> item.id == id);
     if(!product){
     res.status(404).json({Error: "No existe el producto"});
@@ -25,21 +26,17 @@ export const getProductById= (req, res)=> {
     res.json(product);
 };
 
-export const createProduct  = (req, res)=> {
-    const products =service.getAllProducts();  //agregue para que me traiga el array del servicio
-    console.log(req.body);
+export const createProduct  = (req, res)=> {    
     const {name, price}= req.body;
-    const newProduct={
-        id:products.length + 1, 
-        name,
-        price,   
-    };
-    products.push(newProduct);
+    //const products =model.getAllProducts();  //agregue para que me traiga el array del servicio
+    const newProduct= model.createProduct({name,price});
     res.status(201).json(newProduct);
 };
 
+
+
 export const updateProduct =(req,res)=>{
-    const products =service.getAllProducts();  //agregue para que me traiga el array del servicio
+    const products =model.getAllProducts();  //agregue para que me traiga el array del model
     const productId =parseInt(req.params.id, 10);
     const productIndex= products.findIndex((item)=>item.id === productId);
     if(productIndex=== -1){
@@ -52,13 +49,13 @@ export const updateProduct =(req,res)=>{
 };
 
 export const deleteProduct= (req,res)=>{
-    const products =service.getAllProducts();  //agregue para que me traiga el array del servicio
+    const products =model.getAllProducts();  //agregue para que me traiga el array del modelo
     const productId =parseInt(req.params.id, 10);  // base 10
     const productIndex= products.findIndex((item)=>item.id === productId);
     
     if(productIndex=== -1){
         return res.status(404).json({error: "Producto no encontrado, el producto fue borrado"});
-    }
+    };
     products.splice(productIndex,1);  //elimina un elemento
     res.status(204).send(productIndex);
 
