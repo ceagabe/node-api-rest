@@ -37,11 +37,9 @@ export const createProduct  = async (req, res)=> {
 };
 
 
-
-
 export const updateProduct =async (req,res)=>{
     const products =await model.getAllProducts();  //agregue para que me traiga el array del model
-    const productId =parseInt(req.params.id, 10);
+    const productId =(req.params.id);
     const productIndex= products.findIndex((item)=>item.id === productId);
     if(productIndex=== -1){
         return res.status(404).json({error: "Producto no encontrado"});
@@ -53,13 +51,15 @@ export const updateProduct =async (req,res)=>{
 };
 
 export const deleteProduct= async (req,res)=>{
-    const products =await model.getAllProducts(); 
-    const productId =parseInt(req.params.id, 10);  // base 10
+    //const products =await model.getAllProducts(); 
+    const productId =(req.params.id);  // base 10
           //esto va?
     const product=await model.deleteProduct(productId);
    
     if(!product){
         return res.status(404).json({error: "Producto no encontrado, el producto fue borrado"});
+    }else{
+        return res.status(204).json(productId);
     };
-    res.status(204).send(productId);
+    
 };

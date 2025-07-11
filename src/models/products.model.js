@@ -51,8 +51,8 @@ const productsCollection = collection(db, 'products');
     await addDoc(productsCollection, product); 
   }; 
  
-  export async function updateProduct(product) { 
-    await addDoc(productsCollection, product); 
+  export async function updateProduct(product, id) { 
+    await addDoc(productsCollection, product,id); 
   }; 
 
   // Método para eliminar un producto por su ID 
