@@ -56,10 +56,30 @@ const productsCollection = collection(db, 'products');
   }; 
 
   // Método para eliminar un producto por su ID 
-  export async function deleteProduct(id) { 
-    await deleteDoc(doc(productsCollection, id)); 
+  // export async function deleteProduct(id) { 
+  //   await deleteDoc(doc(productsCollection, id)); 
 
-  };
+  // };
+
+export const deleteProduct = async (id) => {
+  try {
+    const productRef = doc(productsCollection, id);
+    const snapshot = await getDoc(productRef);
+
+    if (!snapshot.exists()) {
+      return false;
+    }
+
+    await deleteDoc(productRef);
+    return true;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
+
+
 
 // console.log(products);
 
